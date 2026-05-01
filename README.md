@@ -9,6 +9,7 @@
   - `Chief.png`、`Hero.png`、`HeroPortrait.png` — 角色圖（已去背）
   - `BG1.png` — 背景圖
 - `remove_bg.py` — 去背腳本
+- `resize_image.py` — 調整圖片尺寸腳本
 
 ## remove_bg.py 用法
 
@@ -59,6 +60,29 @@ python remove_bg.py Assets --model u2net_human_seg
 ```bash
 # 範例：還原 HeroPortrait.png
 mv Assets/HeroPortrait.original.png Assets/HeroPortrait.png
+```
+
+---
+
+## resize_image.py 用法
+
+放大或縮小圖片尺寸，支援百分比或指定寬高。
+
+```bash
+# 放大 50%（變成 150%）
+python resize_image.py Assets/HeroPortrait.png --scale 1.5
+
+# 縮小 50%（變成 50%）
+python resize_image.py Assets/HeroPortrait.png --scale 0.5
+
+# 指定寬度（高度等比例縮放）
+python resize_image.py Assets/HeroPortrait.png --width 1024
+
+# 指定高度（寬度等比例縮放）
+python resize_image.py Assets/HeroPortrait.png --height 1024
+
+# 不備份原檔
+python resize_image.py Assets/HeroPortrait.png --scale 1.5 --no-backup
 ```
 
 ---
