@@ -328,6 +328,24 @@ namespace Fungus.EditorUtils
 #if UNITY_2017_4_OR_NEWER
             EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
 #endif
+            CleanupBlockInspector();
+        }
+
+        /// <summary>
+        /// Safely destroys the blockInspector ScriptableObject and clears the Selection
+        /// to prevent NullReferenceException in Unity's InspectorWindow.OnDisable.
+        /// </summary>
+        protected static void CleanupBlockInspector()
+        {
+            if (blockInspector != null)
+            {
+                if (Selection.activeObject == blockInspector)
+                {
+                    Selection.activeObject = null;
+                }
+                DestroyImmediate(blockInspector);
+                blockInspector = null;
+            }
         }
 
 #if UNITY_2017_4_OR_NEWER
@@ -336,7 +354,7 @@ namespace Fungus.EditorUtils
             //force null so it can refresh context on the other side of the context
             flowchart = null;
             prevFlowchart = null;
-            blockInspector = null;
+            CleanupBlockInspector();
         }
 #endif
 
